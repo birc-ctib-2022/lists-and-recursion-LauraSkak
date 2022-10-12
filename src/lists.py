@@ -71,8 +71,9 @@ def contains(x: List[T], e: T) -> bool:
     >>> contains(L(1, L(2, L(3, None))), 2)
     True
     """
-    ...
-
+    if x.head == e:
+        return True
+    return False if x.tail is None else contains(x.tail, e)
 
 def drop(x: List[T], k: int) -> List[T]:
     """
@@ -86,7 +87,11 @@ def drop(x: List[T], k: int) -> List[T]:
     >>> drop(x, 3)
     L(4, None)
     """
-    ...
+    if k == 0:
+        return x
+    else:
+        new_k = k - 1
+        return drop(x.tail, new_k)
 
 
 def keep(x: List[T], k: int) -> List[T]:
@@ -100,7 +105,13 @@ def keep(x: List[T], k: int) -> List[T]:
     >>> keep(x, 3)
     L(1, L(2, L(3, None)))
     """
-    ...
+
+    if k == 0:
+        return None
+    else:
+        print(x)
+        new_k = k - 1
+        return L(x.head, keep(x.tail, new_k))
 
 
 def concat(x: List[T], y: List[T]) -> List[T]:
@@ -110,7 +121,11 @@ def concat(x: List[T], y: List[T]) -> List[T]:
     >>> concat(L(1, L(2, None)), L(3, L(4, None)))
     L(1, L(2, L(3, L(4, None))))
     """
-    ...
+    
+    if x.tail == None:
+        return L(x.head, y)
+    else:
+        return L(x.head, concat(x.tail,y))
 
 
 def append(x: List[T], e: T) -> List[T]:
@@ -120,7 +135,11 @@ def append(x: List[T], e: T) -> List[T]:
     >>> append(L(1, L(2, None)), 3)
     L(1, L(2, L(3, None)))
     """
-    ...
+    if x.tail == None:
+        return L(x.head, L(e, None))
+    else:
+        return L(x.head, append(x.tail, e))
+
 
 
 def rev(x: List[T]) -> List[T]:
@@ -130,7 +149,18 @@ def rev(x: List[T]) -> List[T]:
     >>> rev(L(1, L(2, L(3, None))))
     L(3, L(2, L(1, None)))
     """
-    ...
+    # lst = []
+    # ## get last 
+    # if x.tail == None:
+    #     print(x)
+    #     return lst.append(x.head)
+    
+    # keep(x, length(x))
+    
+    # for i in lst:
+
+    # else:
+    #     return L(rev(x.tail).head, L(x.head, None))
 
 
 # Tail-recursive versions ###########################################
@@ -342,3 +372,8 @@ def rev_loop(x: List[T]) -> List[T]:
     L(3, L(2, L(1, None)))
     """
     ...
+
+
+lst = L(1, L(2, L(3, None)))
+lst2 = L(4, L(5, L(6, None)))
+print(rev(lst))
